@@ -1,51 +1,9 @@
 import React from "react";
-import {
-	View,
-	Text,
-	StyleSheet,
-	Image,
-	ScrollView,
-	SafeAreaView,
-} from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Divider } from "react-native-elements";
-
-const foods = [
-	{
-		title: "Pho",
-		description: "Pho is a Vietnamese Soup",
-		price: "$10.95",
-		image:
-			"https://www.simplyrecipes.com/thmb/NOwXpq1nenarGiJnOTV7o5Oe_Aw=/1777x1333/smart/filters:no_upscale()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2019__04__Beef-Pho-LEAD-2-afc6b6a9144947fb9d72070d7ea8c95c.jpg",
-	},
-	{
-		title: "Banh Mi",
-		description: "Banh Mi is a bread with ham and meat",
-		price: "$7.95",
-		image:
-			"https://omnivorescookbook.com/wp-content/uploads/2020/03/1912_Leftover-Ham-Banh-Mi_550.jpg",
-	},
-	{
-		title: "Goi cuon",
-		description: "Make with noodle and pork and shrimp",
-		price: "$6.95",
-		image:
-			"https://www.manilaspoon.com/wp-content/uploads/2019/09/Rice-Noodles-Yum-GoiCuonImage-1.jpg",
-	},
-	{
-		title: "Bun Bo Hue",
-		description: "Spicy Soup with beef shank and import from Hue",
-		price: "$13.95",
-		image:
-			"https://pupswithchopsticks.com/wp-content/uploads/bun-bo-hue-done2-500x375.jpg",
-	},
-	{
-		title: "Ca Chien Xu",
-		description: "Deep Fried Fish with fish sauces and vegetable",
-		price: "$18.95",
-		image:
-			"https://d13jio720g7qcs.cloudfront.net/images/guides/origin/5d60b0da4746e.jpg",
-	},
-];
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const styles = StyleSheet.create({
 	menuItemStyle: {
@@ -59,28 +17,58 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default function MenuItems() {
+export default function MenuItems({
+	restaurantName,
+	foods,
+	hideCheckbox,
+	marginLeft,
+}) {
+	const dispatch = useDispatch();
+
+	const selectItem = (item, checkboxValue) =>
+		dispatch({
+			type: "ADD_TO_CART",
+			payload: {
+				...item,
+				restaurantName: restaurantName,
+				checkboxValue: checkboxValue,
+			},
+		});
+
+	const cartItems = useSelector(state => state.cartReducer.selectedItems.items);
+
+	const isFoodInCart = (food, cartItems) =>
+		Boolean(cartItems.find(item => item.title === food.title));
+
 	return (
-		<SafeAreaView>
-			<ScrollView showsVerticalScrollIndicator={false}>
-				{foods.map((food, index) => (
-					<View key={index}>
-						<View style={styles.menuItemStyle}>
-							<FoodInfo food={food} />
-							<FoodImage food={food} />
-						</View>
-						<Divider
-							width={0.5}
-							orientation='vertical'
-							style={{ marginHorizontal: 20 }}
-						/>
+		<ScrollView showsVerticalScrollIndicator={false}>
+			{foods.map((food, index) => (
+				<View key={index}>
+					<View style={styles.menuItemStyle}>
+						{hideCheckbox ? (
+							<></>
+						) : (
+							<BouncyCheckbox
+								iconStyle={{ borderColor: "lightgray", borderRadius: 0 }}
+								fillColor='green'
+								isChecked={isFoodInCart(food, cartItems)}
+								onPress={checkboxValue => selectItem(food, checkboxValue)}
+							/>
+						)}
+						<FoodInfo food={food} />
+						<FoodImage food={food} marginLeft={marginLeft ? marginLeft : 0} />
 					</View>
-				))}
-				{/* Does the trick for ScrollView error in
+					<Divider
+						width={0.5}
+						orientation='vertical'
+						style={{ marginHorizontal: 20 }}
+					/>
+				</View>
+			))}
+			{/* Does the trick for ScrollView error in
 				Android ⏬ */}
-				<View style={{ height: 650 }} />
-			</ScrollView>
-		</SafeAreaView>
+			<View style={{ height: 360 }} />
+		</ScrollView>
 	);
 }
 
@@ -92,11 +80,17 @@ const FoodInfo = props => (
 	</View>
 );
 
-const FoodImage = props => (
+const FoodImage = ({ marginLeft, ...props }) => (
 	<View>
 		<Image
 			source={{ uri: props.food.image }}
-			style={{ width: 100, height: 100, borderRadius: 8 }}
+			style={{
+				width: 100,
+				height: 100,
+				borderRadius: 8,
+				marginRight: 20,
+				marginLeft: marginLeft,
+			}}
 		/>
 	</View>
 );

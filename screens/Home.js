@@ -31,8 +31,8 @@ export default function Home({ navigation }) {
 				setRestaurantData(
 					results.businesses.filter(business =>
 						business.transactions.includes(activeTab.toLowerCase())
-					),
-					console.log(results.businesses[0])
+					)
+					// console.log(results.businesses[0])
 					// results.businesses,
 				)
 			);

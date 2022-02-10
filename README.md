@@ -1,4 +1,4 @@
-# My Universal React Project
+# My Uber Eats Clone React Native Project
 
 <p>
   <!-- iOS -->
@@ -25,20 +25,30 @@
   - Android: [Client Android](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=blankexample)
   - Web: Any web browser
 
-## Adding Native Code
+## Home Screen
 
-This project can be run from a web browser or the Expo client app. You may find that you want to add more native code later on. You can do this by ejecting the project and rebuilding it yourself.
+![image](https://user-images.githubusercontent.com/25336029/153511478-7ef429b4-c0f7-44cf-8aa2-af9078e930c8.png)
 
-- Run `yarn eject` to create the native projects.
-- You can still run your project in the web browser or Expo client, you just won't be able to access any new native modules you add.
+## Searching for places
 
-## Publishing
+![image](https://user-images.githubusercontent.com/25336029/153511539-cb16950e-d11f-4856-a2be-353ead3bf7ab.png)
 
-- Deploy the native app to the App store and Play store using this guide: [Deployment](https://docs.expo.dev/distribution/app-stores/).
-- Deploy the website using this guide: [Web deployment](https://docs.expo.dev/distribution/publishing-websites/).
+## Display all restaurants in the area
 
-## 📝 Notes
+![image](https://user-images.githubusercontent.com/25336029/153511582-9921c75d-63fa-4918-b2ff-65e6cdae3667.png)
 
-- Learn more about [Universal React](https://docs.expo.dev/).
-- See what API and components are [available in the React runtimes](https://docs.expo.dev/versions/latest/).
-- Find out more about developing apps and websites: [Guides](https://docs.expo.dev/guides/).
+
+## Check boxes for new order
+
+![image](https://user-images.githubusercontent.com/25336029/153511803-61a9edf5-3b3d-43ef-a77b-08e84b014c94.png)
+
+## Checkout with total 
+
+![image](https://user-images.githubusercontent.com/25336029/153511861-7ecba536-e31a-457c-a318-be0b41bcb7c9.png)
+
+## Placed order
+
+![image](https://user-images.githubusercontent.com/25336029/153511977-3297f052-e0b8-42c5-a3ed-fff1a2ffce1b.png)
+
+
+
